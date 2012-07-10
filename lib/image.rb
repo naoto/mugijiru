@@ -10,6 +10,7 @@ class Image
   def overlay(x,y,width,height, mask)
     image = Magick::Image.read("/tmp/#{@user}.jpg").first
     image.composite!(mask(width,height,mask), x-5, y-5, Magick::OverCompositeOp)
+    image.resize!(32,32)
     image.write("/tmp/#{@user}_#{mask}.png")
   end
 
