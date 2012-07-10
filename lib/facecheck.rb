@@ -25,9 +25,17 @@ class FaceCheck
     data = client.faces_detect(:file => File.new("/tmp/#{@user}.jpg",'rb'))
     puts data
     if !data["photos"][0]["tags"].empty? 
-      tags = data["photos"][0]["tags"][0]["center"]
-      ["00","01","02","03","04","05"].each { |x|
-        Image.new(@user).overlay(tags["x"] - 40, tags["y"] - 50, 45, 45, x)
+
+      tags = data['photos'].first['tags'].first
+
+      width = data['photos'].first['width'].to_f * 0.6
+      height = data['photos'].first['height'].to_f * 0.6
+
+      x = tags['center']['x'].to_f - (width / 10)
+      y = tags['center']['y'].to_f - (height / 10)
+
+      ["00","01","02","03","04","05"].each { |mask|
+        Image.new(@user).overlay(x, y, width, height, mask)
       }
     end
 

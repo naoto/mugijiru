@@ -27,5 +27,5 @@ end
 
 get '/images/icon/:file' do
   content_type 'image/jpeg'
-  File.open("/tmp/#{params[:file]}", 'rb') { |f| f.read }
+  File.open("/tmp/#{params[:file]}", 'rb') { |f| f.read } if File.exists?("/tmp/#{params[:file]}")
 end
