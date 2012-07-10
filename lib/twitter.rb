@@ -12,7 +12,7 @@ class Twitter
   end 
 
   def icon
-    url = "http://api.twitter.com/1/users/profile_image/#{@user}.json?size=bigger"
+    url = "http://api.twitter.com/1/users/profile_image/#{@user}.json?size=original"
    
     file_puts("/tmp/#{@user}.jpg") do |file|
       file_get(url) do |d|
