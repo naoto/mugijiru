@@ -23,11 +23,9 @@ class FaceCheck
 
     client = Face.get_client(:api_key => API_KEY, :api_secret => API_SECRET)
     data = client.faces_detect(:file => File.new("/tmp/#{@user}.jpg",'rb'))
-    
+    puts data
     if !data["photos"][0]["tags"].empty? 
       tags = data["photos"][0]["tags"][0]["center"]
-      puts tags["x"] - 25
-      puts tags["y"] - 25
       ["00","01","02","03","04","05"].each { |x|
         Image.new(@user).overlay(tags["x"] - 40, tags["y"] - 50, 45, 45, x)
       }
